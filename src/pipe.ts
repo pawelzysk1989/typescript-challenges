@@ -64,7 +64,7 @@ function combine<Fns extends UnaryFunction[]>(...fns: Fns): Combine<Fns> {
 
 const double = (num: number) => num * 2;
 const flowed = flow(double, double, String, (str: string) => str + '1234', Date.now)(5);
-const flowedWithError = flow(double, double, Number.parseFloat, (str: string) => str + '1234', Date.now)(5);
+// const flowedWithError = flow(double, double, Number.parseFloat, (str: string) => str + '1234', Date.now)(5);
 
 export type Pipeline<Functions extends UnaryFunction[]> =
   Functions["length"] extends 1
@@ -102,4 +102,9 @@ const piped = pipe(
   Date.now,
 )(5);
 
-const pipedWithError = pipe(double, double, Number.parseFloat, (str: string) => str + '1234', Date.now)(5);
+// const pipedWithError = pipe(double, double, Number.parseFloat, (str: string) => str + '1234', Date.now)(5);
+
+type Composition<Functions extends UnaryFunction[]> = Reverse<Pipeline<Reverse<Functions>>>
+type CompositionTest = Composition<[(x: number) => boolean, (x: string) => number, (x: Date) => string]>
+
+
