@@ -1,4 +1,6 @@
-export type TrimLeft<T extends string> = T extends ` ${infer Y}`
+type Empty = " " | "\n";
+
+export type TrimLeft<T extends string> = T extends `${Empty}${infer Y}`
   ? TrimLeft<Y>
   : T;
 
