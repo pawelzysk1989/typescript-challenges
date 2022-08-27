@@ -1,4 +1,4 @@
-type Flatten<T> = T extends []
+export type Flatten<T> = T extends []
   ? []
   : T extends [infer Any, ...infer Rest]
   ? [...Flatten<Any>, ...Flatten<Rest>]
