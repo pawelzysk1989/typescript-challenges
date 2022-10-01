@@ -1,4 +1,4 @@
-type Empty = " " | "\n";
+type Empty = " " | "\n" | "\t";
 
 export type TrimLeft<T extends string> = T extends `${Empty}${infer Y}`
   ? TrimLeft<Y>
