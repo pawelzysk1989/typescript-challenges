@@ -5,3 +5,5 @@ type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y
   : false;
 
 type Expect<T extends true> = T;
+
+type Interpolable = string | number | bigint | boolean | null | undefined;
