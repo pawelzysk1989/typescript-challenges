@@ -1,4 +1,4 @@
-export type IndexOf<T extends any[], U, Acc extends any[] = []> = T extends [
+type IndexOf<T extends any[], U, Acc extends any[] = []> = T extends [
   infer Head,
   ...infer Tail
 ]
@@ -7,7 +7,7 @@ export type IndexOf<T extends any[], U, Acc extends any[] = []> = T extends [
     : IndexOf<Tail, U, [...Acc, any]>
   : -1;
 
-type cases = [
+type casesIndexOf = [
   Expect<Equal<IndexOf<[1, 2, 3], 2>, 1>>,
   Expect<Equal<IndexOf<[2, 6, 3, 8, 4, 1, 7, 3, 9], 3>, 2>>,
   Expect<Equal<IndexOf<[0, 0, 0], 2>, -1>>,
