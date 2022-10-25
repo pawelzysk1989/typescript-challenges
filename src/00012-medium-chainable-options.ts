@@ -1,24 +1,47 @@
-export type Chainable<R = {}> = {
-  option: <Key extends PropertyKey, Value>(
-    prop: Key,
-    value: Value
-  ) => Chainable<R & { [Prop in Key]: Value }>;
-  get: () => R;
+type Chainable<T = {}> = {
+  option<Key extends PropertyKey, Value>(
+    key: Key,
+    value: Key extends keyof T ? (Value extends T[Key] ? never : Value) : Value
+  ): Chainable<Omit<T, Key> & { [K in Key]: Value }>;
+  get(): T;
 };
 
-declare const config: Chainable;
+/* _____________ Test Cases _____________ */
 
-const result = config
+declare const a: Chainable;
+
+const result1 = a
   .option("foo", 123)
-  .option("name", "type-challenges")
   .option("bar", { value: "Hello World" })
+  .option("name", "type-challenges")
   .get();
 
-// expect the type of result to be:
-interface Result {
+const result2 = a
+  .option("name", "another name")
+  // @ts-expect-error
+  .option("name", "last name")
+  .get();
+
+const result3 = a.option("name", "another name").option("name", 123).get();
+
+type cases = [
+  Expect<Alike<typeof result1, Expected1>>,
+  Expect<Alike<typeof result2, Expected2>>,
+  Expect<Alike<typeof result3, Expected3>>
+];
+
+type Expected1 = {
   foo: number;
-  name: string;
   bar: {
     value: string;
   };
-}
+  name: string;
+};
+
+type Expected2 = {
+  name: string;
+};
+
+type Expected3 = {
+  name: number;
+};
