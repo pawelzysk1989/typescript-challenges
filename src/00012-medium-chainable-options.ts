@@ -24,7 +24,7 @@ const result2 = a
 
 const result3 = a.option("name", "another name").option("name", 123).get();
 
-type cases = [
+type ChainableCases = [
   Expect<Alike<typeof result1, Expected1>>,
   Expect<Alike<typeof result2, Expected2>>,
   Expect<Alike<typeof result3, Expected3>>
