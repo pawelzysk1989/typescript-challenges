@@ -6,6 +6,8 @@ type Get<T, K extends PropertyKey> = K extends keyof T
     : never
   : never;
 
+
+
 type GetCases = [
   Expect<Equal<Get<GetTestData, "hello">, "world">>,
   Expect<Equal<Get<GetTestData, "foo.bar.count">, 6>>,
