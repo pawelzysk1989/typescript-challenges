@@ -17,3 +17,5 @@ type Alike<X, Y> = (<T>() => T extends MergeInsertions<X> ? 1 : 2) extends <
 >() => T extends MergeInsertions<Y> ? 1 : 2
   ? true
   : false;
+
+type ExpectExtends<VALUE, EXPECTED> = EXPECTED extends VALUE ? true : false;
